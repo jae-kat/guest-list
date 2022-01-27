@@ -1,7 +1,13 @@
 import './App.scss';
+import FetchData from './FetchData';
 
 function App() {
-  return <div>Guestlist</div>;
+  return (
+    <div>
+      <h1>Guestlist</h1>
+      <FetchData />
+    </div>
+  );
 }
 
 export default App;

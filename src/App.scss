@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Josefin+Sans:wght@100;200;300;400;500&family=Space+Mono&display=swap');
+
 :root {
   box-sizing: border-box;
   margin: 0;
+  font-family: 'Josefin Sans', 'Trebuchet MS', 'Helvetica', sans-serif;
 }
 
 $colorLight: #f2f2f2;
@@ -10,3 +13,14 @@ $colorDark: #4d4d4d;
 $spaceS: 12px;
 $spaceM: 24px;
 $spaceL: 48px;
+
+$radiusS: 8px;
+$radiusL: 16px;
+
+$thin: 2px;
+
+@mixin flexCenter() {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} ;

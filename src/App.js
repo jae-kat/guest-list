@@ -5,9 +5,8 @@ import GuestInput from './GuestInput';
 function App() {
   return (
     <div>
-      <h1>Guestlist</h1>
       <GuestInput />
-      <FetchData />
+      {/* <FetchData /> */}
     </div>
   );
 }

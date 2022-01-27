@@ -1,11 +1,7 @@
+// import google font
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Josefin+Sans:wght@100;200;300;400;500&family=Space+Mono&display=swap');
 
-:root {
-  box-sizing: border-box;
-  margin: 0;
-  font-family: 'Josefin Sans', 'Trebuchet MS', 'Helvetica', sans-serif;
-}
-
+// define sass variables
 $colorLight: #f2f2f2;
 $colorMedium: #949494;
 $colorDark: #4d4d4d;
@@ -19,8 +15,60 @@ $radiusL: 16px;
 
 $thin: 2px;
 
-@mixin flexCenter() {
+// set global styles
+body {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: 'Josefin Sans', 'Trebuchet MS', 'Helvetica', sans-serif;
+  color: $colorDark;
+}
+
+// define mixins here:
+@mixin flexCol($align: center) {
   display: flex;
   flex-direction: column;
-  align-items: center;
-} ;
+  align-items: $align;
+}
+
+// add styles for GuestInput
+
+.display {
+  @include flexCol();
+}
+
+.content {
+  @include flexCol(flex-start);
+  border: 2px solid $colorMedium;
+}
+
+.list {
+  border: 2px solid $colorMedium;
+  margin: $spaceM;
+  padding: $spaceS;
+
+  p {
+    display: inline-block;
+  }
+}
+
+.inputs {
+  @include flexCol(flex-start);
+  border: 2px solid $colorMedium;
+  margin: $spaceM;
+
+  label {
+    margin: $spaceS;
+  }
+}
+
+.buttons {
+  @include flexCol(flex-start);
+  margin: $spaceM;
+  border: 2px solid $colorMedium;
+
+  button {
+    margin: $spaceS;
+    padding: $spaceS;
+    font-family: 'Josefin Sans', 'Trebuchet MS', 'Helvetica', sans-serif;
+  }
+}

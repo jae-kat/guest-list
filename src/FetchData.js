@@ -13,7 +13,7 @@ export default function FetchData() {
       console.log(guests);
     }
     data().catch((error) => console.log(error));
-  }, []);
+  }, [guests]);
 
   return (
     <div>

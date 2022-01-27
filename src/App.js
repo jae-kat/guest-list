@@ -1,9 +1,7 @@
-import './App.css';
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
+import './App.scss';
 
 function App() {
-  return <div>HelloWorld</div>;
+  return <div>Guestlist</div>;
 }
 
 export default App;

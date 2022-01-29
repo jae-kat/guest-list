@@ -29,6 +29,7 @@ export default function Guestlist() {
     const createdGuest = await response.json();
     console.log(createdGuest);
 
+    // clear the input fields
     setFirstName('');
     setLastName('');
   }
@@ -59,23 +60,27 @@ export default function Guestlist() {
     <div className="display">
       <div className="content">
         <div className="list">
-          {savedList.map((guest, index) => (
-            <div key={guest.lastName + guest.id} data-test-id="guest">
+          {savedList.map((guest) => (
+            <div
+              key={guest.lastName + guest.id}
+              data-test-id="guest"
+              className="guest"
+            >
               <p className="guestName">
                 {guest.firstName + ' ' + guest.lastName}
               </p>
-              <input
-                type="checkbox"
-                checked={guest.attending}
-                onChange={() => {
-                  handleUpdateGuest(guest.id, guest.attending).catch((error) =>
-                    console.log('update guest: ' + error),
-                  );
-                }}
-              />
-              <p className="status">
-                {guest.attending ? 'Attending' : 'Not attending'}
-              </p>
+              <div className="status">
+                <input
+                  type="checkbox"
+                  checked={guest.attending}
+                  onChange={() => {
+                    handleUpdateGuest(guest.id, guest.attending).catch(
+                      (error) => console.log('update guest: ' + error),
+                    );
+                  }}
+                />
+                <p>{guest.attending ? 'Attending' : 'Not attending'}</p>
+              </div>
               <button
                 onClick={() =>
                   handleRemoveGuest(guest.id).catch((error) =>

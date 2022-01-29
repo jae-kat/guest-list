@@ -30,15 +30,27 @@ body {
   align-items: $align;
 }
 
-// add styles for GuestInput
-
+// center everything
 .display {
   @include flexCol();
+  font-size: 1.2rem;
+  margin: $spaceM;
 }
 
+// define how the content displays
 .content {
-  @include flexCol(flex-start);
+  @include flexCol(stretch);
   border: 2px solid $colorMedium;
+  max-width: 768px;
+  width: 70vw;
+  @media screen and (max-width: 700px) {
+    width: 95vw;
+  }
+  button {
+    margin: $spaceS;
+    padding: $spaceS;
+    font-family: 'Josefin Sans', 'Trebuchet MS', 'Helvetica', sans-serif;
+  }
 }
 
 .list {
@@ -46,11 +58,25 @@ body {
   margin: $spaceM;
   padding: $spaceS;
 
-  p {
-    display: inline-block;
+  // define the the styles for each individual guest line
+  .guest {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: 2px solid $colorLight;
+    margin: $spaceS;
+    .guestName {
+      font-variant: small-caps;
+    }
+    .status {
+      display: flex;
+      input {
+        transform: translateY($radiusL);
+      }
+    }
   }
 }
 
+// style the input fields
 .inputs {
   @include flexCol(flex-start);
   border: 2px solid $colorMedium;
@@ -59,16 +85,13 @@ body {
   label {
     margin: $spaceS;
   }
+  input {
+    margin-left: $spaceS;
+  }
 }
 
+// style the addGuest button
 .buttons {
-  @include flexCol(flex-start);
   margin: $spaceM;
   border: 2px solid $colorMedium;
-
-  button {
-    margin: $spaceS;
-    padding: $spaceS;
-    font-family: 'Josefin Sans', 'Trebuchet MS', 'Helvetica', sans-serif;
-  }
 }

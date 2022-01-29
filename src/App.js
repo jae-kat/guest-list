@@ -1,12 +1,10 @@
 import './App.scss';
-import FetchData from './FetchData';
-import GuestInput from './GuestInput';
+import Guestlist from './Guestlist';
 
 function App() {
   return (
     <div>
-      <GuestInput />
-      {/* <FetchData /> */}
+      <Guestlist />
     </div>
   );
 }

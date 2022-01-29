@@ -70,16 +70,18 @@ export default function Guestlist() {
                 {guest.firstName + ' ' + guest.lastName}
               </p>
               <div className="status">
-                <input
-                  type="checkbox"
-                  checked={guest.attending}
-                  onChange={() => {
-                    handleUpdateGuest(guest.id, guest.attending).catch(
-                      (error) => console.log('update guest: ' + error),
-                    );
-                  }}
-                />
-                <p>{guest.attending ? 'Attending' : 'Not attending'}</p>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={guest.attending}
+                    onChange={() => {
+                      handleUpdateGuest(guest.id, guest.attending).catch(
+                        (error) => console.log('update guest: ' + error),
+                      );
+                    }}
+                  />
+                  {guest.attending ? 'Attending' : 'Not attending'}
+                </label>
               </div>
               <button
                 onClick={() =>

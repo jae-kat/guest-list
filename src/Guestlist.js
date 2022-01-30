@@ -60,47 +60,51 @@ export default function Guestlist() {
     <div className="display">
       <div className="content">
         <div className="list">
-          {savedList.map((guest) => (
-            <div
-              key={guest.lastName + guest.id}
-              data-test-id="guest"
-              className="guest"
-            >
-              <p className="guestName">
-                {guest.firstName + ' ' + guest.lastName}
-              </p>
-              <div className="status">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={guest.attending}
-                    onChange={() => {
-                      handleUpdateGuest(guest.id, guest.attending).catch(
-                        (error) => console.log('update guest: ' + error),
-                      );
-                    }}
-                  />
-                  {guest.attending ? 'Attending' : 'Not attending'}
-                </label>
-              </div>
-              <button
-                onClick={() =>
-                  handleRemoveGuest(guest.id).catch((error) =>
-                    console.log('remove guest: ' + error),
-                  )
-                }
+          {savedList.length === 0 ? (
+            <h1>Loading...</h1>
+          ) : (
+            savedList.map((guest) => (
+              <div
+                key={guest.lastName + guest.id}
+                data-test-id="guest"
+                className="guest"
               >
-                Remove guest
-              </button>
-            </div>
-          ))}
+                <p className="guestName">
+                  {guest.firstName + ' ' + guest.lastName}
+                </p>
+                <div className="status">
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={guest.attending}
+                      onChange={() => {
+                        handleUpdateGuest(guest.id, guest.attending).catch(
+                          (error) => console.log('update guest: ' + error),
+                        );
+                      }}
+                    />
+                    {guest.attending ? 'Attending' : 'Not attending'}
+                  </label>
+                </div>
+                <button
+                  onClick={() =>
+                    handleRemoveGuest(guest.id).catch((error) =>
+                      console.log('remove guest: ' + error),
+                    )
+                  }
+                >
+                  Remove guest
+                </button>
+              </div>
+            ))
+          )}
         </div>
         <div className="inputs">
           <label>
             First name:
             <input
               onChange={(event) => setFirstName(event.target.value)}
-              value={firstName}
+              value={firstName} disabled={savedList.length === 0 ? true : false}
             />
           </label>
           <label>
@@ -111,11 +115,12 @@ export default function Guestlist() {
               onKeyPress={(event) =>
                 event.key === 'Enter' ? handleAddGuest() : null
               }
+              disabled={savedList.length === 0 ? true : false}
             />
           </label>
         </div>
         <div className="buttons">
-          <button onClick={() => handleAddGuest()}>Add guest</button>
+          <button disabled={savedList.length === 0 ? true : false} onClick={() => handleAddGuest() }>Add guest</button>
         </div>
       </div>
     </div>

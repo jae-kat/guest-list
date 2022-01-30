@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Guestlist() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [savedList, setSavedList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const isFocused = useRef(null);
 
   const baseUrl = 'http://localhost:4000';
 
@@ -34,6 +35,8 @@ export default function Guestlist() {
     // clear the input fields
     setFirstName('');
     setLastName('');
+    // set focus on the firstName input field
+    isFocused.current.focus();
   }
 
   // deleting a guest
@@ -60,14 +63,17 @@ export default function Guestlist() {
 
   // delete all guest entries
   async function handleDeleteAll() {
+    let response;
+    let deletedGuest;
     for (const guest of savedList) {
-      let response = await fetch(`${baseUrl}/guests/${guest.id}`, {
+      response = await fetch(`${baseUrl}/guests/${guest.id}`, {
         method: 'DELETE',
       });
-      let deletedGuest = await response.json();
+      deletedGuest = await response.json();
       console.log(deletedGuest);
     }
     console.log('guestlist cleared');
+    isFocused.current.focus();
   }
 
   return (
@@ -131,6 +137,7 @@ export default function Guestlist() {
               onChange={(event) => setFirstName(event.target.value)}
               value={firstName}
               disabled={isLoading ? true : false}
+              ref={isFocused}
             />
           </label>
           <label>

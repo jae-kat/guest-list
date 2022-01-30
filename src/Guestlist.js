@@ -76,6 +76,7 @@ export default function Guestlist() {
                   <label>
                     <input
                       type="checkbox"
+                      aria-label={'change attending status for ' + guest.firstName}
                       checked={guest.attending}
                       onChange={() => {
                         handleUpdateGuest(guest.id, guest.attending).catch(

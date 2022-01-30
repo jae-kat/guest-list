@@ -76,7 +76,9 @@ export default function Guestlist() {
                   <label>
                     <input
                       type="checkbox"
-                      aria-label={'change attending status for ' + guest.firstName}
+                      aria-label={
+                        'change attending status for ' + guest.firstName
+                      }
                       checked={guest.attending}
                       onChange={() => {
                         handleUpdateGuest(guest.id, guest.attending).catch(
@@ -105,7 +107,8 @@ export default function Guestlist() {
             First name:
             <input
               onChange={(event) => setFirstName(event.target.value)}
-              value={firstName} disabled={savedList.length === 0 ? true : false}
+              value={firstName}
+              disabled={savedList.length === 0 ? true : false}
             />
           </label>
           <label>
@@ -121,7 +124,12 @@ export default function Guestlist() {
           </label>
         </div>
         <div className="buttons">
-          <button disabled={savedList.length === 0 ? true : false} onClick={() => handleAddGuest() }>Add guest</button>
+          <button
+            disabled={savedList.length === 0 ? true : false}
+            onClick={() => handleAddGuest()}
+          >
+            Add guest
+          </button>
         </div>
       </div>
     </div>

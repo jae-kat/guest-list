@@ -61,20 +61,29 @@ export default function Guestlist() {
   // delete all guest entries
   async function handleDeleteAll() {
     for (const guest of savedList) {
-      const response = await fetch(`${baseUrl}/guests/${guest.id}`, {
+      let response = await fetch(`${baseUrl}/guests/${guest.id}`, {
         method: 'DELETE',
       });
-      const deletedGuest = await response.json();
+      let deletedGuest = await response.json();
+      console.log(deletedGuest);
     }
     console.log('guestlist cleared');
   }
 
   return (
     <div className="display">
+      <h1>Guestlist</h1>
       <div className="content">
         <div className="list">
           {isLoading ? (
             <h1>Loading...</h1>
+          ) : savedList.length === 0 ? (
+            <p>
+              <i>
+                Use the input fields below to begin keeping track of your
+                guestlist
+              </i>
+            </p>
           ) : (
             savedList.map((guest) => (
               <div

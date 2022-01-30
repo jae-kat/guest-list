@@ -64,11 +64,15 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
     border: 2px solid $colorLight;
     margin: $spaceS;
+    @media screen and (max-width: 400px) {
+      grid-template-columns: 1fr;
+    }
     .guestName {
       font-variant: small-caps;
     }
     .status {
       display: flex;
+      padding-top: $spaceS;
     }
   }
 }

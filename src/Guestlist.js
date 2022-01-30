@@ -4,6 +4,7 @@ export default function Guestlist() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [savedList, setSavedList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const baseUrl = 'http://localhost:4000';
 
@@ -13,6 +14,7 @@ export default function Guestlist() {
       const response = await fetch(`${baseUrl}/guests`);
       const allGuests = await response.json();
       setSavedList(Object.values(allGuests));
+      setIsLoading(false);
     }
     getGuests().catch((error) => console.log('get all guests error:' + error));
   }, [savedList]);
@@ -71,7 +73,7 @@ export default function Guestlist() {
     <div className="display">
       <div className="content">
         <div className="list">
-          {savedList.length === 0 ? (
+          {isLoading ? (
             <h1>Loading...</h1>
           ) : (
             savedList.map((guest) => (
@@ -119,7 +121,7 @@ export default function Guestlist() {
             <input
               onChange={(event) => setFirstName(event.target.value)}
               value={firstName}
-              disabled={savedList.length === 0 ? true : false}
+              disabled={isLoading ? true : false}
             />
           </label>
           <label>
@@ -130,13 +132,13 @@ export default function Guestlist() {
               onKeyPress={(event) =>
                 event.key === 'Enter' ? handleAddGuest() : null
               }
-              disabled={savedList.length === 0 ? true : false}
+              disabled={isLoading ? true : false}
             />
           </label>
         </div>
         <div className="buttons">
           <button
-            disabled={savedList.length === 0 ? true : false}
+            disabled={isLoading ? true : false}
             onClick={() => handleAddGuest()}
           >
             Add guest

@@ -91,8 +91,13 @@ body {
   }
 }
 
-// style the addGuest button
+// style the addGuest and deleteAll buttons
 .buttons {
+  display: flex;
   margin: $spaceM;
   border: 2px solid $colorMedium;
+  .delete {
+    margin-left: auto;
+    padding: $radiusS;
+  }
 }

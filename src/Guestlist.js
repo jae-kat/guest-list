@@ -56,6 +56,17 @@ export default function Guestlist() {
     console.log(updatedGuest);
   }
 
+  // delete all guest entries
+  async function handleDeleteAll() {
+    for (const guest of savedList) {
+      const response = await fetch(`${baseUrl}/guests/${guest.id}`, {
+        method: 'DELETE',
+      });
+      const deletedGuest = await response.json();
+    }
+    console.log('guestlist cleared');
+  }
+
   return (
     <div className="display">
       <div className="content">
@@ -129,6 +140,16 @@ export default function Guestlist() {
             onClick={() => handleAddGuest()}
           >
             Add guest
+          </button>
+          <button
+            className="delete"
+            onClick={() =>
+              handleDeleteAll().catch((error) =>
+                console.log('delete all: ' + error),
+              )
+            }
+          >
+            Delete all guest entries
           </button>
         </div>
       </div>

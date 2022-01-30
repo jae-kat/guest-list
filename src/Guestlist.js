@@ -5,6 +5,7 @@ export default function Guestlist() {
   const [lastName, setLastName] = useState('');
   const [savedList, setSavedList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
   const isFocused = useRef(null);
 
   const baseUrl = 'http://localhost:4000';
@@ -22,21 +23,26 @@ export default function Guestlist() {
 
   // creating a new guest (POST)
   async function handleAddGuest() {
-    const response = await fetch(`${baseUrl}/guests`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ firstName: firstName, lastName: lastName }),
-    });
-    const createdGuest = await response.json();
-    console.log(createdGuest);
-
-    // clear the input fields
-    setFirstName('');
-    setLastName('');
-    // set focus on the firstName input field
-    isFocused.current.focus();
+    // check if both input fields have been filled out
+    if (firstName.length === 0 || lastName.length === 0) {
+      setHasError(true);
+    } else {
+      // add the guest data to the list
+      const response = await fetch(`${baseUrl}/guests`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ firstName: firstName, lastName: lastName }),
+      });
+      const createdGuest = await response.json();
+      console.log(createdGuest);
+      // clear the input fields
+      setFirstName('');
+      setLastName('');
+      // set focus on the firstName input field
+      isFocused.current.focus();
+    }
   }
 
   // deleting a guest
@@ -130,7 +136,10 @@ export default function Guestlist() {
             ))
           )}
         </div>
-        <div className="inputs">
+        <div className={hasError ? 'error inputs' : 'inputs'}>
+          {hasError ? (
+            <p>Please submit both a first name and a last name!</p>
+          ) : null}
           <label>
             First name:
             <input

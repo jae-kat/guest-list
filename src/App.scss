@@ -91,6 +91,14 @@ body {
   }
 }
 
+// make error visible
+.error {
+  border: 4px double red;
+  p {
+    margin-left: $spaceS;
+  }
+}
+
 // style the addGuest and deleteAll buttons
 .buttons {
   display: flex;

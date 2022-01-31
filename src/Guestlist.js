@@ -12,8 +12,8 @@ export default function Guestlist() {
   const firstNameIsFocused = useRef(null);
   const lastNameIsFocused = useRef(null);
 
-  const baseUrl = 'https://react-guestlist.herokuapp.com';
   // const baseUrl = 'http://localhost:4000';
+  const baseUrl = 'https://react-guestlist.herokuapp.com';
 
   // getting all guests (GET)
   useEffect(() => {
@@ -21,7 +21,6 @@ export default function Guestlist() {
       const response = await fetch(`${baseUrl}/guests`);
       const allGuests = await response.json();
       setSavedList(allGuests);
-      console.log(allGuests);
       setIsLoading(false);
     }
     getGuests().catch((error) => console.log('get all guests error:' + error));
@@ -222,43 +221,49 @@ export default function Guestlist() {
           </button>
         </div>
 
-        <div className={hasError ? 'error inputs' : 'inputs'}>
-          {hasError ? (
-            <p>Please submit both a first name and a last name!</p>
-          ) : null}
-          <label>
-            First name:
-            <input
-              onChange={(event) => setFirstName(event.target.value)}
-              value={firstName}
+        <div className="addGuest">
+          <div className={hasError ? 'error inputs' : 'inputs'}>
+            {hasError ? (
+              <p>Please submit both a first name and a last name!</p>
+            ) : null}
+            <label>
+              First name:
+              <input
+                onChange={(event) => setFirstName(event.target.value)}
+                value={firstName}
+                disabled={isLoading ? true : false}
+                ref={firstNameIsFocused}
+                onKeyPress={(event) =>
+                  event.key === 'Enter'
+                    ? lastNameIsFocused.current.focus()
+                    : null
+                }
+              />
+            </label>
+            <label>
+              Last name:
+              <input
+                onChange={(event) => setLastName(event.target.value)}
+                value={lastName}
+                onKeyPress={(event) =>
+                  event.key === 'Enter' ? handleAddGuest() : null
+                }
+                disabled={isLoading ? true : false}
+                ref={lastNameIsFocused}
+              />
+            </label>
+          </div>
+          <div className="buttons">
+            <button
+              className="add"
               disabled={isLoading ? true : false}
-              ref={firstNameIsFocused}
-              onKeyPress={(event) =>
-                event.key === 'Enter' ? lastNameIsFocused.current.focus() : null
-              }
-            />
-          </label>
-          <label>
-            Last name:
-            <input
-              onChange={(event) => setLastName(event.target.value)}
-              value={lastName}
-              onKeyPress={(event) =>
-                event.key === 'Enter' ? handleAddGuest() : null
-              }
-              disabled={isLoading ? true : false}
-              ref={lastNameIsFocused}
-            />
-          </label>
+              onClick={() => handleAddGuest()}
+            >
+              Add guest
+            </button>
+          </div>
         </div>
-        <div className="buttons">
-          <button
-            className="add"
-            disabled={isLoading ? true : false}
-            onClick={() => handleAddGuest()}
-          >
-            Add guest
-          </button>
+        <div className="deleteAll">
           <button
             className="delete"
             onClick={() =>

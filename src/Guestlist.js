@@ -6,7 +6,10 @@ export default function Guestlist() {
   const [savedList, setSavedList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  const isFocused = useRef(null);
+  const [attendingOnly, setAttendingOnly] = useState(false);
+  const [notAttendingOnly, setNotAttendingOnly] = useState(false);
+  const firstNameIsFocused = useRef(null);
+  const lastNameIsFocused = useRef(null);
 
   const baseUrl = 'http://localhost:4000';
 
@@ -41,7 +44,8 @@ export default function Guestlist() {
       setFirstName('');
       setLastName('');
       // set focus on the firstName input field
-      isFocused.current.focus();
+      firstNameIsFocused.current.focus();
+      setHasError(false);
     }
   }
 
@@ -52,6 +56,7 @@ export default function Guestlist() {
     });
     const deletedGuest = await response.json();
     console.log(deletedGuest);
+    setHasError(false);
   }
 
   // change attending status (UPDATE)
@@ -65,6 +70,7 @@ export default function Guestlist() {
     });
     const updatedGuest = await response.json();
     console.log(updatedGuest);
+    setHasError(false);
   }
 
   // delete all guest entries
@@ -146,7 +152,10 @@ export default function Guestlist() {
               onChange={(event) => setFirstName(event.target.value)}
               value={firstName}
               disabled={isLoading ? true : false}
-              ref={isFocused}
+              ref={firstNameIsFocused}
+              onKeyPress={(event) =>
+                event.key === 'Enter' ? lastNameIsFocused.current.focus() : null
+              }
             />
           </label>
           <label>
@@ -158,6 +167,7 @@ export default function Guestlist() {
                 event.key === 'Enter' ? handleAddGuest() : null
               }
               disabled={isLoading ? true : false}
+              ref={lastNameIsFocused}
             />
           </label>
         </div>

@@ -83,6 +83,9 @@ body {
   justify-content: flex-end;
   border: 2px solid $colorMedium;
   margin: $spaceM;
+  .active {
+    box-shadow: 2px 2px 2px $colorMedium inset;
+  }
 }
 
 // style the input fields

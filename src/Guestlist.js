@@ -155,6 +155,7 @@ export default function Guestlist() {
 
         <div className="filters">
           <button
+            className={attendingOnly ? 'active' : 'inactive'}
             onClick={() => {
               setAttendingOnly(true);
               setNotAttendingOnly(false);
@@ -163,6 +164,7 @@ export default function Guestlist() {
             Show attending only
           </button>
           <button
+            className={notAttendingOnly ? 'active' : 'inactive'}
             onClick={() => {
               setNotAttendingOnly(true);
               setAttendingOnly(false);
@@ -171,6 +173,9 @@ export default function Guestlist() {
             Show not attending only
           </button>
           <button
+            className={
+              !attendingOnly && !notAttendingOnly ? 'active' : 'inactive'
+            }
             onClick={() => {
               setAttendingOnly(false);
               setNotAttendingOnly(false);

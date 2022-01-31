@@ -32,7 +32,7 @@ export default function Guestlist() {
       setHasError(true);
     } else {
       // add the guest data to the list
-      const response = await fetch(`${baseUrl}/guests`, {
+      await fetch(`${baseUrl}/guests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export default function Guestlist() {
 
   // deleting a guest
   async function handleRemoveGuest(id) {
-    const response = await fetch(`${baseUrl}/guests/${id}`, {
+    await fetch(`${baseUrl}/guests/${id}`, {
       method: 'DELETE',
     });
     setHasError(false);
@@ -60,7 +60,7 @@ export default function Guestlist() {
 
   // change attending status (UPDATE)
   async function handleUpdateGuest(id, attending) {
-    const response = await fetch(`${baseUrl}/guests/${id}`, {
+    await fetch(`${baseUrl}/guests/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export default function Guestlist() {
   async function handleUpdateFirstName(id) {
     const newFirstName = prompt('Change the first name:');
 
-    const response = await fetch(`${baseUrl}/guests/${id}`, {
+    await fetch(`${baseUrl}/guests/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ export default function Guestlist() {
   async function handleUpdateLastName(id) {
     const newLastName = prompt('Change the last name:');
 
-    const response = await fetch(`${baseUrl}/guests/${id}`, {
+    await fetch(`${baseUrl}/guests/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -107,9 +107,8 @@ export default function Guestlist() {
 
   // delete all guest entries
   async function handleDeleteAll() {
-    let response;
     for (const guest of savedList) {
-      response = await fetch(`${baseUrl}/guests/${guest.id}`, {
+      await fetch(`${baseUrl}/guests/${guest.id}`, {
         method: 'DELETE',
       });
     }

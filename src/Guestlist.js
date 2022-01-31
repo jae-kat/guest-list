@@ -12,7 +12,8 @@ export default function Guestlist() {
   const firstNameIsFocused = useRef(null);
   const lastNameIsFocused = useRef(null);
 
-  const baseUrl = 'https://react-guestlist.herokuapp.com/';
+  // const baseUrl = 'https://react-guestlist.herokuapp.com/';
+  const baseUrl = 'http://localhost:4000';
 
   // getting all guests (GET)
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function Guestlist() {
       setIsLoading(false);
     }
     getGuests().catch((error) => console.log('get all guests error:' + error));
+    console.log(savedList);
   }, [updateDisplay]);
 
   // creating a new guest (POST)

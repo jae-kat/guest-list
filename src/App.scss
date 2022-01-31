@@ -3,15 +3,18 @@
 
 // define sass variables
 $colorLight: #f2f2f2;
-$colorMedium: #949494;
+$colorMedium: #9494942f;
+$colorButtons: #b6b5b541;
 $colorDark: #4d4d4d;
+
+$colorRed: rgba(252, 118, 100, 0.1);
 
 $spaceS: 8px;
 $spaceM: 24px;
 $spaceL: 48px;
 
-$radiusS: 8px;
-$radiusL: 16px;
+$radiusS: 4px;
+$radiusM: 8px;
 
 $thin: 2px;
 
@@ -21,6 +24,7 @@ body {
   margin: 0;
   font-family: 'Josefin Sans', 'Trebuchet MS', 'Helvetica', sans-serif;
   color: $colorDark;
+  background-color: $colorLight;
 }
 
 // define mixins here:
@@ -41,6 +45,7 @@ body {
 .content {
   @include flexCol(stretch);
   border: $thin solid $colorMedium;
+  border-radius: $radiusM;
   max-width: 768px;
   width: 70vw;
   @media screen and (max-width: 700px) {
@@ -48,6 +53,8 @@ body {
   }
   button {
     cursor: pointer;
+    border-radius: $radiusS;
+    background-color: $colorButtons;
     margin: $spaceS;
     padding: $spaceS;
     font-family: 'Josefin Sans', 'Trebuchet MS', 'Helvetica', sans-serif;
@@ -55,15 +62,17 @@ body {
 }
 
 .list {
-  border: $thin solid $colorMedium;
+  // border: $thin solid $colorMedium;
   margin: $spaceM;
+  margin-bottom: 0;
   padding: $spaceS;
 
   // define the the styles for each individual guest line
   .guest {
     display: grid;
     grid-template-columns: 2fr 2fr 1fr;
-    border: $thin solid $colorLight;
+    border: $thin solid $colorMedium;
+    border-radius: $radiusM;
     margin: $spaceS;
     padding: $spaceS;
     @media screen and (max-width: 400px) {
@@ -87,6 +96,7 @@ body {
       height: min-content;
       align-self: center;
       justify-self: flex-end;
+      color: $colorDark;
     }
   }
 }
@@ -95,24 +105,31 @@ body {
 .filters {
   display: flex;
   justify-content: flex-end;
-  border: $thin solid $colorMedium;
+  // border: $thin solid $colorMedium;
   margin: $spaceM;
+  margin-top: 0;
   .active {
     box-shadow: $thin $thin $thin $colorMedium inset;
   }
 }
 
+.addGuest {
+  display: flex;
+  justify-content: center;
+  font-size: $spaceM;
+}
+
 // style the input fields
 .inputs {
   @include flexCol(flex-start);
-  border: $thin solid $colorMedium;
-  margin: $spaceM;
+  margin: $spaceS;
 
   label {
     margin: $spaceS;
   }
   input {
     margin-left: $spaceS;
+    background-color: $colorLight;
   }
 }
 
@@ -124,17 +141,29 @@ body {
   }
 }
 
-// style the addGuest and deleteAll buttons
+// style the addGuest button
 .buttons {
-  display: flex;
-  align-items: center;
-  margin: $spaceM;
-  border: $thin solid $colorMedium;
+  margin: $spaceS;
+
   .add {
+    margin: $spaceS;
     padding: $spaceM;
+    font-size: 1.5rem;
+    color: $colorDark;
   }
+}
+
+// style the deleteAll button
+.deleteAll {
+  display: flex;
+  margin: $spaceM;
+  margin-top: $spaceL;
+  justify-content: flex-end;
   .delete {
-    margin-left: auto;
+    // margin: $spaceL;
     height: min-content;
+    width: min-content;
+    white-space: nowrap;
+    background-color: $colorRed;
   }
 }

@@ -77,6 +77,14 @@ body {
   }
 }
 
+// filter buttons
+.filters {
+  display: flex;
+  justify-content: flex-end;
+  border: 2px solid $colorMedium;
+  margin: $spaceM;
+}
+
 // style the input fields
 .inputs {
   @include flexCol(flex-start);

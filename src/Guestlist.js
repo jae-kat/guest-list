@@ -140,46 +140,46 @@ export default function Guestlist() {
                 guestlist
               </i>
             </p>
+          ) : attendingOnly ? (
+            savedList
+              .filter((guest) => guest.attending)
+              .map((guest) => mapOverSavedList(guest))
+          ) : notAttendingOnly ? (
+            savedList
+              .filter((guest) => !guest.attending)
+              .map((guest) => mapOverSavedList(guest))
           ) : (
-            savedList.map((guest) => (
-              <div
-                key={guest.lastName + guest.id}
-                data-test-id="guest"
-                className="guest"
-              >
-                <p className="guestName">
-                  {guest.firstName + ' ' + guest.lastName}
-                </p>
-                <div className="status">
-                  <label>
-                    <input
-                      type="checkbox"
-                      aria-label={
-                        'change attending status for ' + guest.firstName
-                      }
-                      checked={guest.attending}
-                      onChange={() => {
-                        handleUpdateGuest(guest.id, guest.attending).catch(
-                          (error) => console.log('update guest: ' + error),
-                        );
-                      }}
-                    />
-                    {guest.attending ? 'Attending' : 'Not attending'}
-                  </label>
-                </div>
-                <button
-                  onClick={() =>
-                    handleRemoveGuest(guest.id).catch((error) =>
-                      console.log('remove guest: ' + error),
-                    )
-                  }
-                >
-                  Remove guest
-                </button>
-              </div>
-            ))
+            savedList.map((guest) => mapOverSavedList(guest))
           )}
         </div>
+
+        <div className="filters">
+          <button
+            onClick={() => {
+              setAttendingOnly(true);
+              setNotAttendingOnly(false);
+            }}
+          >
+            Show attending only
+          </button>
+          <button
+            onClick={() => {
+              setNotAttendingOnly(true);
+              setAttendingOnly(false);
+            }}
+          >
+            Show not attending only
+          </button>
+          <button
+            onClick={() => {
+              setAttendingOnly(false);
+              setNotAttendingOnly(false);
+            }}
+          >
+            Show all guests
+          </button>
+        </div>
+
         <div className={hasError ? 'error inputs' : 'inputs'}>
           {hasError ? (
             <p>Please submit both a first name and a last name!</p>

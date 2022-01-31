@@ -12,8 +12,8 @@ export default function Guestlist() {
   const firstNameIsFocused = useRef(null);
   const lastNameIsFocused = useRef(null);
 
-  // const baseUrl = 'https://react-guestlist.herokuapp.com/';
-  const baseUrl = 'http://localhost:4000';
+  const baseUrl = 'https://react-guestlist.herokuapp.com/';
+  // const baseUrl = 'http://localhost:4000';
 
   // getting all guests (GET)
   useEffect(() => {
@@ -127,7 +127,7 @@ export default function Guestlist() {
         data-test-id="guest"
         className="guest"
       >
-        <div className="guestName">
+        <div className="guestName" title="double-click to edit name">
           <p onDoubleClick={() => handleUpdateFirstName(guest.id)}>
             {`${guest.firstName} `}
           </p>

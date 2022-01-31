@@ -126,7 +126,14 @@ export default function Guestlist() {
         data-test-id="guest"
         className="guest"
       >
-        <p className="guestName">{guest.firstName + ' ' + guest.lastName}</p>
+        <div className="guestName">
+          <p onDoubleClick={() => handleUpdateFirstName(guest.id)}>
+            {`${guest.firstName} `}
+          </p>
+          <p onDoubleClick={() => handleUpdateLastName(guest.id)}>
+            {guest.lastName}
+          </p>
+        </div>
         <div className="status">
           <label>
             <input

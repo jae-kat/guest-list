@@ -12,7 +12,7 @@ export default function Guestlist() {
   const firstNameIsFocused = useRef(null);
   const lastNameIsFocused = useRef(null);
 
-  const baseUrl = 'https://react-guestlist.herokuapp.com/';
+  const baseUrl = 'https://react-guestlist.herokuapp.com';
   // const baseUrl = 'http://localhost:4000';
 
   // getting all guests (GET)

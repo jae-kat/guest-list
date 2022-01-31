@@ -21,10 +21,10 @@ export default function Guestlist() {
       const response = await fetch(`${baseUrl}/guests`);
       const allGuests = await response.json();
       setSavedList(allGuests);
+      console.log(allGuests);
       setIsLoading(false);
     }
     getGuests().catch((error) => console.log('get all guests error:' + error));
-    console.log(savedList);
   }, [updateDisplay]);
 
   // creating a new guest (POST)

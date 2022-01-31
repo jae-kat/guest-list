@@ -6,7 +6,7 @@ $colorLight: #f2f2f2;
 $colorMedium: #949494;
 $colorDark: #4d4d4d;
 
-$spaceS: 12px;
+$spaceS: 8px;
 $spaceM: 24px;
 $spaceL: 48px;
 
@@ -40,7 +40,7 @@ body {
 // define how the content displays
 .content {
   @include flexCol(stretch);
-  border: 2px solid $colorMedium;
+  border: $thin solid $colorMedium;
   max-width: 768px;
   width: 70vw;
   @media screen and (max-width: 700px) {
@@ -55,28 +55,38 @@ body {
 }
 
 .list {
-  border: 2px solid $colorMedium;
+  border: $thin solid $colorMedium;
   margin: $spaceM;
   padding: $spaceS;
 
   // define the the styles for each individual guest line
   .guest {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    border: 2px solid $colorLight;
+    grid-template-columns: 2fr 2fr 1fr;
+    border: $thin solid $colorLight;
     margin: $spaceS;
+    padding: $spaceS;
     @media screen and (max-width: 400px) {
       grid-template-columns: 1fr;
     }
     p {
-      display: inline;
+      display: inline-flex;
+      font-size: 1.5rem;
+      align-items: center;
+      padding: $spaceS;
     }
     .guestName {
       font-variant: small-caps;
     }
     .status {
       display: flex;
-      padding-top: $spaceS;
+      align-items: center;
+    }
+    button {
+      width: min-content;
+      height: min-content;
+      align-self: center;
+      justify-self: flex-end;
     }
   }
 }
@@ -85,17 +95,17 @@ body {
 .filters {
   display: flex;
   justify-content: flex-end;
-  border: 2px solid $colorMedium;
+  border: $thin solid $colorMedium;
   margin: $spaceM;
   .active {
-    box-shadow: 2px 2px 2px $colorMedium inset;
+    box-shadow: $thin $thin $thin $colorMedium inset;
   }
 }
 
 // style the input fields
 .inputs {
   @include flexCol(flex-start);
-  border: 2px solid $colorMedium;
+  border: $thin solid $colorMedium;
   margin: $spaceM;
 
   label {
@@ -117,10 +127,14 @@ body {
 // style the addGuest and deleteAll buttons
 .buttons {
   display: flex;
+  align-items: center;
   margin: $spaceM;
-  border: 2px solid $colorMedium;
+  border: $thin solid $colorMedium;
+  .add {
+    padding: $spaceM;
+  }
   .delete {
     margin-left: auto;
-    padding: $radiusS;
+    height: min-content;
   }
 }

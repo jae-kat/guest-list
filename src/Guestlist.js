@@ -251,6 +251,7 @@ export default function Guestlist() {
         </div>
         <div className="buttons">
           <button
+            className="add"
             disabled={isLoading ? true : false}
             onClick={() => handleAddGuest()}
           >

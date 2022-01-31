@@ -19,7 +19,7 @@ export default function Guestlist() {
     async function getGuests() {
       const response = await fetch(`${baseUrl}/guests`);
       const allGuests = await response.json();
-      setSavedList(Object.values(allGuests));
+      setSavedList(allGuests);
       setIsLoading(false);
     }
     getGuests().catch((error) => console.log('get all guests error:' + error));

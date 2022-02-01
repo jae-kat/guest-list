@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 export default function Guestlist() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [savedList, setSavedList] = useState([]);
+  const [guestList, setGuestList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [attendingOnly, setAttendingOnly] = useState(false);
@@ -12,15 +12,15 @@ export default function Guestlist() {
   const firstNameIsFocused = useRef(null);
   const lastNameIsFocused = useRef(null);
 
-  const baseUrl = 'http://localhost:4000';
-  // const baseUrl = 'https://react-guestlist.herokuapp.com';
+  // const baseUrl = 'http://localhost:4000';
+  const baseUrl = 'https://react-guestlist.herokuapp.com';
 
   // getting all guests (GET)
   useEffect(() => {
     async function getGuests() {
       const response = await fetch(`${baseUrl}/guests`);
       const allGuests = await response.json();
-      setSavedList([...allGuests]);
+      setGuestList([...allGuests]);
       setIsLoading(false);
     }
     getGuests().catch((error) => console.log('get all guests error:' + error));
@@ -41,7 +41,7 @@ export default function Guestlist() {
         body: JSON.stringify({ firstName: firstName, lastName: lastName }),
       });
       const createdGuest = await response.json();
-      setSavedList([...savedList, createdGuest]);
+      setGuestList([...guestList, createdGuest]);
       // clear the input fields
       setFirstName('');
       setLastName('');
@@ -57,8 +57,8 @@ export default function Guestlist() {
       method: 'DELETE',
     });
     const deletedGuest = await response.json();
-    const newList = savedList.filter((guest) => guest.id !== deletedGuest.id);
-    setSavedList(newList);
+    const newList = guestList.filter((guest) => guest.id !== deletedGuest.id);
+    setGuestList([...newList]);
     setHasError(false);
   }
 
@@ -73,14 +73,14 @@ export default function Guestlist() {
     });
     setHasError(false);
     const updatedGuest = await response.json();
-    const newList = savedList.map((guest) => {
+    const newList = guestList.map((guest) => {
       if (guest.id === id) {
         return updatedGuest;
       } else {
         return guest;
       }
     });
-    setSavedList([...newList]);
+    setGuestList([...newList]);
   }
 
   // change firstName of existing guest (Update)
@@ -96,14 +96,14 @@ export default function Guestlist() {
     });
     setHasError(false);
     const updatedGuest = await response.json();
-    const newList = savedList.map((guest) => {
+    const newList = guestList.map((guest) => {
       if (guest.id === id) {
         return updatedGuest;
       } else {
         return guest;
       }
     });
-    setSavedList([...newList]);
+    setGuestList([...newList]);
   }
 
   // change lastName of existing guest (Update)
@@ -119,30 +119,30 @@ export default function Guestlist() {
     });
     setHasError(false);
     const updatedGuest = await response.json();
-    const newList = savedList.map((guest) => {
+    const newList = guestList.map((guest) => {
       if (guest.id === id) {
         return updatedGuest;
       } else {
         return guest;
       }
     });
-    setSavedList([...newList]);
+    setGuestList([...newList]);
   }
 
   // delete all guest entries
   async function handleDeleteAll() {
-    for (const guest of savedList) {
+    for (const guest of guestList) {
       await fetch(`${baseUrl}/guests/${guest.id}`, {
         method: 'DELETE',
       });
     }
     firstNameIsFocused.current.focus();
     setHasError(false);
-    setSavedList([]);
+    setGuestList([]);
   }
 
   // map over the saved list: callback function to create a div for each individual guest
-  function mapOverSavedList(guest) {
+  function mapOverGuestList(guest) {
     return (
       <div
         key={`guest-${guest.lastName}-${guest.id}`}
@@ -192,7 +192,7 @@ export default function Guestlist() {
         <div className="list">
           {isLoading ? (
             <h1>Loading...</h1>
-          ) : savedList.length === 0 ? (
+          ) : guestList.length === 0 ? (
             <p>
               <i>
                 Use the input fields below to begin keeping track of your
@@ -200,15 +200,15 @@ export default function Guestlist() {
               </i>
             </p>
           ) : attendingOnly ? (
-            savedList
+            guestList
               .filter((guest) => guest.attending)
-              .map((guest) => mapOverSavedList(guest))
+              .map((guest) => mapOverGuestList(guest))
           ) : notAttendingOnly ? (
-            savedList
+            guestList
               .filter((guest) => !guest.attending)
-              .map((guest) => mapOverSavedList(guest))
+              .map((guest) => mapOverGuestList(guest))
           ) : (
-            savedList.map((guest) => mapOverSavedList(guest))
+            guestList.map((guest) => mapOverGuestList(guest))
           )}
         </div>
 

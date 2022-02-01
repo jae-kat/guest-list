@@ -21,9 +21,9 @@ export default function Guestlist() {
       const response = await fetch(`${baseUrl}/guests`);
       const allGuests = await response.json();
       setGuestList([...allGuests]);
-      setIsLoading(false);
     }
     getGuests().catch((error) => console.log('get all guests error:' + error));
+    setIsLoading(false);
   }, []);
 
   // creating a new guest (POST)

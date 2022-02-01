@@ -5,9 +5,11 @@
 $colorLight: #f2f2f2;
 $colorMedium: #9494942f;
 $colorButtons: #b6b5b541;
-$colorDark: #4d4d4d;
+$colorDark: #131212;
 
-$colorRed: rgba(252, 118, 100, 0.1);
+$colorRed: rgba(180, 70, 145, 0.579);
+$backgroundColor: rgba(4, 115, 138, 0.558);
+$shadowColor: rgba(119, 191, 207, 0.552);
 
 $spaceS: 8px;
 $spaceM: 24px;
@@ -24,7 +26,8 @@ body {
   margin: 0;
   font-family: 'Josefin Sans', 'Trebuchet MS', 'Helvetica', sans-serif;
   color: $colorDark;
-  background-color: $colorLight;
+  background-image: url('./confetti.jpg');
+  background-size: cover;
 }
 
 // define mixins here:
@@ -39,6 +42,9 @@ body {
   @include flexCol();
   font-size: 1.2rem;
   margin: $spaceM;
+  h1 {
+    text-shadow: 4px 4px 4px $shadowColor;
+  }
 }
 
 // define how the content displays
@@ -46,6 +52,9 @@ body {
   @include flexCol(stretch);
   border: $thin solid $colorMedium;
   border-radius: $radiusM;
+  box-shadow: 0 0 $radiusS $shadowColor;
+  background-color: $backgroundColor;
+  backdrop-filter: blur($spaceS);
   max-width: 768px;
   width: 70vw;
   @media screen and (max-width: 700px) {
@@ -54,10 +63,16 @@ body {
   button {
     cursor: pointer;
     border-radius: $radiusS;
-    background-color: $colorButtons;
+    background-color: transparent;
     margin: $spaceS;
     padding: $spaceS;
     font-family: 'Josefin Sans', 'Trebuchet MS', 'Helvetica', sans-serif;
+    border: $radiusS double $colorMedium;
+    box-shadow: 0 0 $radiusS $shadowColor;
+    &:hover {
+      border: $thin solid $colorDark;
+      box-shadow: none;
+    }
   }
 }
 
@@ -66,38 +81,38 @@ body {
   margin: $spaceM;
   margin-bottom: 0;
   padding: $spaceS;
+}
 
-  // define the the styles for each individual guest line
-  .guest {
-    display: grid;
-    grid-template-columns: 2fr 2fr 1fr;
-    border: $thin solid $colorMedium;
-    border-radius: $radiusM;
-    margin: $spaceS;
+// define the the styles for each individual guest line
+.guest {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  border: $thin solid $colorMedium;
+  border-radius: $radiusM;
+  margin: $spaceS;
+  padding: $spaceS;
+  @media screen and (max-width: 400px) {
+    grid-template-columns: 1fr;
+  }
+  p {
+    display: inline-flex;
+    font-size: 1.5rem;
+    align-items: center;
     padding: $spaceS;
-    @media screen and (max-width: 400px) {
-      grid-template-columns: 1fr;
-    }
-    p {
-      display: inline-flex;
-      font-size: 1.5rem;
-      align-items: center;
-      padding: $spaceS;
-    }
-    .guestName {
-      font-variant: small-caps;
-    }
-    .status {
-      display: flex;
-      align-items: center;
-    }
-    button {
-      width: min-content;
-      height: min-content;
-      align-self: center;
-      justify-self: flex-end;
-      color: $colorDark;
-    }
+  }
+  .guestName {
+    font-variant: small-caps;
+  }
+  .status {
+    display: flex;
+    align-items: center;
+  }
+  button {
+    width: min-content;
+    height: min-content;
+    align-self: center;
+    justify-self: flex-end;
+    color: $colorDark;
   }
 }
 
@@ -109,7 +124,8 @@ body {
   margin: $spaceM;
   margin-top: 0;
   .active {
-    box-shadow: $thin $thin $thin $colorMedium inset;
+    border: 4px groove $shadowColor;
+    // box-shadow: 0 0 $radiusS $shadowColor;
   }
 }
 
@@ -123,21 +139,21 @@ body {
 .inputs {
   @include flexCol(flex-start);
   margin: $spaceS;
-
   label {
     margin: $spaceS;
   }
   input {
     margin-left: $spaceS;
-    background-color: $colorLight;
+    background-color: transparent;
   }
 }
 
 // make error visible
 .error {
-  border: 4px double red;
+  border: 4px double $colorRed;
   p {
     margin-left: $spaceS;
+    padding: $radiusS;
   }
 }
 

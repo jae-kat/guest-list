@@ -2,9 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Josefin+Sans:wght@100;200;300;400;500&family=Space+Mono&display=swap');
 
 // define sass variables
-$colorLight: #f2f2f2;
 $colorMedium: #9494942f;
-$colorButtons: #b6b5b541;
 $colorDark: #131212;
 
 $colorRed: rgba(180, 70, 145, 0.579);
@@ -77,7 +75,6 @@ body {
 }
 
 .list {
-  // border: $thin solid $colorMedium;
   margin: $spaceM;
   margin-bottom: 0;
   padding: $spaceS;
@@ -125,7 +122,6 @@ body {
   margin-top: 0;
   .active {
     border: 4px groove $shadowColor;
-    // box-shadow: 0 0 $radiusS $shadowColor;
   }
 }
 
@@ -176,7 +172,6 @@ body {
   margin-top: $spaceL;
   justify-content: flex-end;
   .delete {
-    // margin: $spaceL;
     height: min-content;
     width: min-content;
     white-space: nowrap;

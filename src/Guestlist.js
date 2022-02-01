@@ -1,3 +1,4 @@
+import './App.scss';
 import { useEffect, useRef, useState } from 'react';
 
 export default function Guestlist() {

@@ -234,11 +234,11 @@ export default function Guestlist() {
                 value={firstName}
                 disabled={isLoading ? true : false}
                 ref={firstNameIsFocused}
-                onKeyPress={(event) =>
-                  event.key === 'Enter'
-                    ? lastNameIsFocused.current.focus()
-                    : null
-                }
+                onKeyPress={(event) => {
+                  if (event.key === 'Enter') {
+                    lastNameIsFocused.current.focus();
+                  }
+                }}
               />
             </label>
             <label>
@@ -246,9 +246,11 @@ export default function Guestlist() {
               <input
                 onChange={(event) => setLastName(event.target.value)}
                 value={lastName}
-                onKeyPress={(event) =>
-                  event.key === 'Enter' ? handleAddGuest() : null
-                }
+                onKeyPress={(event) => {
+                  if (event.key === 'Enter') {
+                    handleAddGuest().catch((error) => console.log(error));
+                  }
+                }}
                 disabled={isLoading ? true : false}
                 ref={lastNameIsFocused}
               />

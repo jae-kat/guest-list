@@ -2,7 +2,6 @@ import './App.scss';
 import { useEffect, useRef, useState } from 'react';
 
 export default function Guestlist() {
-  const [updateDisplay, setUpdateDisplay] = useState('empty');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [savedList, setSavedList] = useState([]);
@@ -13,19 +12,19 @@ export default function Guestlist() {
   const firstNameIsFocused = useRef(null);
   const lastNameIsFocused = useRef(null);
 
-  // const baseUrl = 'http://localhost:4000';
-  const baseUrl = 'https://react-guestlist.herokuapp.com';
+  const baseUrl = 'http://localhost:4000';
+  // const baseUrl = 'https://react-guestlist.herokuapp.com';
 
   // getting all guests (GET)
   useEffect(() => {
     async function getGuests() {
       const response = await fetch(`${baseUrl}/guests`);
       const allGuests = await response.json();
-      setSavedList(allGuests);
+      setSavedList([...allGuests]);
       setIsLoading(false);
     }
     getGuests().catch((error) => console.log('get all guests error:' + error));
-  }, [updateDisplay]);
+  }, []);
 
   // creating a new guest (POST)
   async function handleAddGuest() {
@@ -34,14 +33,15 @@ export default function Guestlist() {
       setHasError(true);
     } else {
       // add the guest data to the list
-      await fetch(`${baseUrl}/guests`, {
+      const response = await fetch(`${baseUrl}/guests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ firstName: firstName, lastName: lastName }),
       });
-      setUpdateDisplay(`guest ${firstName} ${lastName} added`);
+      const createdGuest = await response.json();
+      setSavedList([...savedList, createdGuest]);
       // clear the input fields
       setFirstName('');
       setLastName('');
@@ -53,16 +53,18 @@ export default function Guestlist() {
 
   // deleting a guest
   async function handleRemoveGuest(id) {
-    await fetch(`${baseUrl}/guests/${id}`, {
+    const response = await fetch(`${baseUrl}/guests/${id}`, {
       method: 'DELETE',
     });
+    const deletedGuest = await response.json();
+    const newList = savedList.filter((guest) => guest.id !== deletedGuest.id);
+    setSavedList(newList);
     setHasError(false);
-    setUpdateDisplay(`guest with id ${id} deleted`);
   }
 
   // change attending status (UPDATE)
   async function handleUpdateGuest(id, attending) {
-    await fetch(`${baseUrl}/guests/${id}`, {
+    const response = await fetch(`${baseUrl}/guests/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -70,14 +72,22 @@ export default function Guestlist() {
       body: JSON.stringify({ attending: !attending }),
     });
     setHasError(false);
-    setUpdateDisplay(`status of guest with id ${id} changed to ${!attending}`);
+    const updatedGuest = await response.json();
+    const newList = savedList.map((guest) => {
+      if (guest.id === id) {
+        return updatedGuest;
+      } else {
+        return guest;
+      }
+    });
+    setSavedList([...newList]);
   }
 
   // change firstName of existing guest (Update)
   async function handleUpdateFirstName(id) {
     const newFirstName = prompt('Change the first name:');
 
-    await fetch(`${baseUrl}/guests/${id}`, {
+    const response = await fetch(`${baseUrl}/guests/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -85,16 +95,22 @@ export default function Guestlist() {
       body: JSON.stringify({ firstName: newFirstName }),
     });
     setHasError(false);
-    setUpdateDisplay(
-      `first name of guest with id ${id} was changed to ${newFirstName}`,
-    );
+    const updatedGuest = await response.json();
+    const newList = savedList.map((guest) => {
+      if (guest.id === id) {
+        return updatedGuest;
+      } else {
+        return guest;
+      }
+    });
+    setSavedList([...newList]);
   }
 
   // change lastName of existing guest (Update)
   async function handleUpdateLastName(id) {
     const newLastName = prompt('Change the last name:');
 
-    await fetch(`${baseUrl}/guests/${id}`, {
+    const response = await fetch(`${baseUrl}/guests/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -102,9 +118,15 @@ export default function Guestlist() {
       body: JSON.stringify({ lastName: newLastName }),
     });
     setHasError(false);
-    setUpdateDisplay(
-      `last name of guest with id ${id} was changed to ${newLastName}`,
-    );
+    const updatedGuest = await response.json();
+    const newList = savedList.map((guest) => {
+      if (guest.id === id) {
+        return updatedGuest;
+      } else {
+        return guest;
+      }
+    });
+    setSavedList([...newList]);
   }
 
   // delete all guest entries
@@ -116,14 +138,14 @@ export default function Guestlist() {
     }
     firstNameIsFocused.current.focus();
     setHasError(false);
-    setUpdateDisplay('all guests have been deleted');
+    setSavedList([]);
   }
 
   // map over the saved list: callback function to create a div for each individual guest
   function mapOverSavedList(guest) {
     return (
       <div
-        key={guest.lastName + guest.id}
+        key={`guest-${guest.lastName}-${guest.id}`}
         data-test-id="guest"
         className="guest"
       >

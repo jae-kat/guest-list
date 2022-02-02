@@ -252,9 +252,9 @@ export default function Guestlist() {
             <label>
               First name:
               <input
+                disabled={isLoading ? 'disabled' : false}
                 onChange={(event) => setFirstName(event.target.value)}
                 value={firstName}
-                disabled={isLoading ? true : false}
                 ref={firstNameIsFocused}
                 onKeyPress={(event) => {
                   if (event.key === 'Enter') {
@@ -266,6 +266,7 @@ export default function Guestlist() {
             <label>
               Last name:
               <input
+                disabled={isLoading ? 'disabled' : false}
                 onChange={(event) => setLastName(event.target.value)}
                 value={lastName}
                 onKeyPress={(event) => {
@@ -273,15 +274,14 @@ export default function Guestlist() {
                     handleAddGuest().catch((error) => console.log(error));
                   }
                 }}
-                disabled={isLoading ? true : false}
                 ref={lastNameIsFocused}
               />
             </label>
           </div>
           <div className="buttons">
             <button
+              disabled={isLoading ? 'disabled' : false}
               className="add"
-              disabled={isLoading ? true : false}
               onClick={() => handleAddGuest()}
             >
               Add guest

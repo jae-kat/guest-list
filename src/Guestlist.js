@@ -21,7 +21,7 @@ export default function Guestlist() {
       const response = await fetch(`${baseUrl}/guests`);
       const allGuests = await response.json();
       setGuestList([...allGuests]);
-      setIsLoading(false);
+      setIsLoading(() => false);
     }
     getGuests().catch((error) => console.log('get all guests error:' + error));
   }, []);
@@ -191,7 +191,7 @@ export default function Guestlist() {
       <div className="content">
         <div className="list">
           {isLoading ? (
-            <h1>Loading...</h1>
+            'Loading...'
           ) : guestList.length === 0 ? (
             <p>
               <i>

@@ -149,13 +149,35 @@ export default function Guestlist() {
         data-test-id="guest"
         className="guest"
       >
-        <div className="guestName" title="double-click to edit name">
-          <p onDoubleClick={() => handleUpdateFirstName(guest.id)}>
+        <div className="guestName">
+          <p
+            onDoubleClick={() => handleUpdateFirstName(guest.id)}
+            title="double-click to edit name"
+          >
             {`${guest.firstName} `}
           </p>
-          <p onDoubleClick={() => handleUpdateLastName(guest.id)}>
+          <button
+            title="edit"
+            className="editNames"
+            onClick={() => handleUpdateFirstName(guest.id)}
+            aria-label="Edit the first name"
+          >
+            ✎
+          </button>
+          <p
+            onDoubleClick={() => handleUpdateLastName(guest.id)}
+            title="double-click to edit name"
+          >
             {guest.lastName}
           </p>
+          <button
+            title="edit"
+            className="editNames"
+            onClick={() => handleUpdateFirstName(guest.id)}
+            aria-label="Edit the first name"
+          >
+            ✎
+          </button>
         </div>
         <div className="status">
           <label>

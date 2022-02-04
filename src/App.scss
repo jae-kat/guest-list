@@ -6,7 +6,7 @@ $colorMedium: #9494942f;
 $colorDark: #131212;
 
 $colorRed: rgba(180, 70, 145, 0.579);
-$backgroundColor: rgba(4, 115, 138, 0.558);
+$backgroundColor: rgba(4, 102, 138, 0.4);
 $shadowColor: rgba(119, 191, 207, 0.552);
 
 $spaceS: 8px;
@@ -41,7 +41,7 @@ body {
   font-size: 1.2rem;
   margin: $spaceM;
   h1 {
-    text-shadow: 4px 4px 4px $shadowColor;
+    text-shadow: 6px 6px 4px rgba(4, 102, 138, 1);
   }
 }
 
@@ -95,10 +95,25 @@ body {
     display: inline-flex;
     font-size: 1.5rem;
     align-items: center;
-    padding: $spaceS;
+    padding: $spaceS 0;
   }
   .guestName {
     font-variant: small-caps;
+    font-weight: 500;
+  }
+  .editNames {
+    max-width: min-content;
+    box-shadow: none;
+    border: none;
+    color: $colorDark;
+    opacity: 0.4;
+    margin: 0;
+    margin-right: $spaceS;
+    padding: 0;
+    transform: rotate(90deg) translate(-15px, -3px);
+    &:hover {
+      border: none;
+    }
   }
   .status {
     display: flex;

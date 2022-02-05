@@ -2,21 +2,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Josefin+Sans:wght@100;200;300;400;500&family=Space+Mono&display=swap');
 
 // define sass variables
-$colorMedium: #9494942f;
 $colorDark: #131212;
 
-$colorRed: rgba(180, 70, 145, 0.579);
-$backgroundColor: rgba(4, 102, 138, 0.4);
-$shadowColor: rgba(119, 191, 207, 0.552);
-
-$spaceS: 8px;
-$spaceM: 24px;
-$spaceL: 48px;
-
-$radiusS: 4px;
-$radiusM: 8px;
+$colorRed: rgba(181, 161, 148, 0.5);
+$colorWhite: rgba(255, 255, 255, 0.06);
+$backgroundColor: rgba(128, 159, 170, 0.586);
 
 $thin: 2px;
+
+$spaceXS: 4px;
+$spaceS: 8px;
+
+$spaceM: 24px;
+$spaceL: 48px;
 
 // set global styles
 body {
@@ -24,8 +22,9 @@ body {
   margin: 0;
   font-family: 'Josefin Sans', 'Trebuchet MS', 'Helvetica', sans-serif;
   color: $colorDark;
-  background-image: url('./confetti.jpg');
+  background-image: url('./flowers.jpg');
   background-size: cover;
+  background-attachment: fixed;
 }
 
 // define mixins here:
@@ -41,18 +40,20 @@ body {
   font-size: 1.2rem;
   margin: $spaceM;
   h1 {
-    text-shadow: 6px 6px 4px rgba(4, 102, 138, 1);
+    background-color: $backgroundColor;
+    backdrop-filter: blur($spaceXS);
+    padding: $spaceS;
+    border-radius: $spaceS;
   }
 }
 
 // define how the content displays
 .content {
   @include flexCol(stretch);
-  border: $thin solid $colorMedium;
-  border-radius: $radiusM;
-  box-shadow: 0 0 $radiusS $shadowColor;
+  border-radius: $spaceS;
+  box-shadow: 0 0 $spaceM $backgroundColor;
   background-color: $backgroundColor;
-  backdrop-filter: blur($spaceS);
+  backdrop-filter: blur($spaceXS);
   max-width: 768px;
   width: 70vw;
   @media screen and (max-width: 700px) {
@@ -60,16 +61,16 @@ body {
   }
   button {
     cursor: pointer;
-    border-radius: $radiusS;
-    background-color: transparent;
+    border-radius: $spaceXS;
     margin: $spaceS;
     padding: $spaceS;
     font-family: 'Josefin Sans', 'Trebuchet MS', 'Helvetica', sans-serif;
-    border: $radiusS double $colorMedium;
-    box-shadow: 0 0 $radiusS $shadowColor;
+    box-shadow: 0 0 $thin $colorWhite;
+    background-color: transparent;
+    border: $thin solid $backgroundColor;
     &:hover {
-      border: $thin solid $colorDark;
-      box-shadow: none;
+      border: 1px solid $backgroundColor;
+      background-color: $colorWhite;
     }
   }
 }
@@ -77,17 +78,17 @@ body {
 .list {
   margin: $spaceM;
   margin-bottom: 0;
-  padding: $spaceS;
 }
 
 // define the the styles for each individual guest line
 .guest {
   display: grid;
   grid-template-columns: 2fr 2fr 1fr;
-  border: $thin solid $colorMedium;
-  border-radius: $radiusM;
+  border-radius: $spaceS;
   margin: $spaceS;
-  padding: $spaceS;
+  padding: 0 $spaceS;
+  background-color: $colorWhite;
+  backdrop-filter: opacity(0.2);
   @media screen and (max-width: 400px) {
     grid-template-columns: 1fr;
   }
@@ -95,7 +96,7 @@ body {
     display: inline-flex;
     font-size: 1.5rem;
     align-items: center;
-    padding: $spaceS 0;
+    // padding: $spaceS 0;
   }
   .guestName {
     font-variant: small-caps;
@@ -132,11 +133,11 @@ body {
 .filters {
   display: flex;
   justify-content: flex-end;
-  // border: $thin solid $colorMedium;
   margin: $spaceM;
   margin-top: 0;
   .active {
-    border: 4px groove $shadowColor;
+    background-color: $colorWhite;
+    border: $thin solid transparent;
   }
 }
 
@@ -161,10 +162,11 @@ body {
 
 // make error visible
 .error {
-  border: 4px double $colorRed;
+  border: $spaceXS solid $colorRed;
+  border-radius: $spaceXS;
   p {
-    margin-left: $spaceS;
-    padding: $radiusS;
+    padding: $spaceXS;
+    font-size: 1rem;
   }
 }
 
@@ -190,6 +192,9 @@ body {
     height: min-content;
     width: min-content;
     white-space: nowrap;
-    background-color: $colorRed;
+    &:hover {
+      background-color: $colorRed;
+      border: $thin solid $colorWhite;
+    }
   }
 }

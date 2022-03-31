@@ -221,16 +221,16 @@ export default function Guestlist() {
                 guestlist
               </i>
             </p>
-          ) : attendingOnly ? (
-            guestList
-              .filter((guest) => guest.attending)
-              .map((guest) => mapOverGuestList(guest))
-          ) : notAttendingOnly ? (
-            guestList
-              .filter((guest) => !guest.attending)
-              .map((guest) => mapOverGuestList(guest))
           ) : (
-            guestList.map((guest) => mapOverGuestList(guest))
+            guestList
+              .filter((guest) =>
+                attendingOnly
+                  ? guest.attending
+                  : notAttendingOnly
+                  ? !guest.attending
+                  : true,
+              )
+              .map((guest) => mapOverGuestList(guest))
           )}
         </div>
 

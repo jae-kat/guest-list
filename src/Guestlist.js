@@ -29,7 +29,7 @@ export default function Guestlist() {
   // creating a new guest (POST)
   async function handleAddGuest() {
     // check if both input fields have been filled out
-    if (firstName.length === 0 || lastName.length === 0) {
+    if (!firstName.trim() || !lastName.trim()) {
       setHasError(true);
     } else {
       // add the guest data to the list

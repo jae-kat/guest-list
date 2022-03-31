@@ -9,7 +9,7 @@ export default function Guestlist() {
   const [hasError, setHasError] = useState(false);
   const [attendingOnly, setAttendingOnly] = useState(false);
   const [notAttendingOnly, setNotAttendingOnly] = useState(false);
-  const firstNameIsFocused = useRef(null);
+  const firstNameInputRef = useRef(null);
   const lastNameIsFocused = useRef(null);
 
   const baseUrl = 'https://react-guestlist.herokuapp.com';
@@ -46,7 +46,7 @@ export default function Guestlist() {
       setFirstName('');
       setLastName('');
       // set focus on the firstName input field
-      firstNameIsFocused.current.focus();
+      firstNameInputRef.current.focus();
       setHasError(false);
     }
   }
@@ -136,7 +136,7 @@ export default function Guestlist() {
         method: 'DELETE',
       });
     }
-    firstNameIsFocused.current.focus();
+    firstNameInputRef.current.focus();
     setHasError(false);
     setGuestList([]);
   }
@@ -277,7 +277,7 @@ export default function Guestlist() {
                 disabled={isLoading ? 'disabled' : false}
                 onChange={(event) => setFirstName(event.target.value)}
                 value={firstName}
-                ref={firstNameIsFocused}
+                ref={firstNameInputRef}
                 onKeyPress={(event) => {
                   if (event.key === 'Enter') {
                     lastNameIsFocused.current.focus();
